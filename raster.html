@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html class="homePage">
+<head>
+	<!-- This is a comment! Text here will be ignored by the browser. -->
+	<meta charset="UTF-8">
+	<title>Otis Sperry's Portfolio</title>
+	<link href="myCSS.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript">
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+    </script>
+</head>
+<body onLoad="MM_preloadImages('images/home_2.gif')">
+<div class="container">
+  <div class="header">
+  	<h1>Raster</h1>
+  </div>
+  <div class="nav">
+    <h3><a href="index.html" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Home','','images/home_button_2.fw.png',1)"><img src="images/home_button_1.fw.png" alt="" width="100" height="40" id="Home"></a>|<a href="raster.html" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Raster','','images/raster_button_2.fw.png',1)"><img src="images/raster_button_1.png" alt="" width="100" height="40" id="Raster"></a>|<a href="vector.html" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Vector','','images/vector_button_1.png',1)"><img src="images/vector_button_2.fw.png" alt="" width="100" height="40" id="Vector"></a>|<a href="audio.html" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Audio','','images/audio_button_1.png',1)"><img src="images/audio_button_2.fw.png" alt="" width="100" height="40" id="Audio"></a>|<a href="flash.html" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Flash','','images/flash_button_2.fw.png',1)"><img src="images/flash_button_1.fw.png" alt="Hamboogrun Nazi" width="100" height="40" id="Flash"></a><a href="flash.html" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Flash','','images/audio_button_2.fw.png',1)">|</a><a href="programming.html" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Programming','','images/programming_button_2.fw.png',1)"><img src="images/programming_button_1.fw.png" alt="" width="200" height="40" id="Programming"></a></h3> </h3>
+  </div>
+  <div class="content">
+    <p>Magazine Cover (Sept. 2014)</p>
+    <p><img src="images/plants.jpg" width="900" height="1200" alt=""/></p>
+    <p>Face Swap (Sept. 2014)</p>
+    <p><img src="images/faceswap.jpg" width="1250" height="1000" alt=""/></p>
+    <p><img src="images/faceswap2.jpg" width="800" height="531" alt=""/></p>
+  </div>
+  <div class="footer">
+    <h4><a href="aboutme.html">About Me</a> | <a href="contact.html">Contact</a> | <a href="fr_index.html">En Fran<strong>ç</strong>ais</a> | Copyright 2015 </h4>
+  </div>
+</div>
+</body>
+</html>

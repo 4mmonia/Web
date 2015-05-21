@@ -1,0 +1,264 @@
+// Otis Sperry | 2014
+
+// Instantiate each of the classification of buttons
+Button[] numButtons = new Button[10];
+Button[] opButtons = new Button[11];
+Button[] spButtons = new Button[1];
+
+String displayValue = "0";
+String valueToCompute = "";
+String valueToCompute2 = "";
+float valueToComputeI = 0;
+float valueToComputeI2 = 0;
+float result = 0;
+char opValue;
+boolean firstNum;
+
+void setup () {
+  size(420, 400);
+  background(255);
+  //noFill();
+  strokeWeight(3);
+  stroke(200);
+
+  // Populate operators
+  opButtons[0] = new Button(220, 140).asOperator("+", 40, 40);
+  opButtons[1] = new Button(220, 200).asOperator("-", 40, 40);
+  opButtons[2] = new Button(220, 260).asOperator("*", 40, 40);
+  opButtons[3] = new Button(220, 320).asOperator("/", 40, 40);
+  opButtons[4] = new Button(280, 320).asOperator("=", 40, 40);
+  opButtons[5] = new Button(280, 140).asOperator("C", 40, 40);
+  opButtons[6] = new Button(280, 200).asOperator("+/-", 40, 40);
+  opButtons[7] = new Button(340, 140).asOperator("Sqrt", 40, 40);
+  opButtons[8] = new Button(340, 200).asOperator("Sin", 40, 40);
+  opButtons[9] = new Button(340, 260).asOperator("Cos", 40, 40);
+  opButtons[10] = new Button(340, 320).asOperator("Sq", 40, 40);
+
+  // Populate number buttons
+  numButtons[0] = new Button(40, 320).asNumber(0, 160, 40);
+  numButtons[1] = new Button(40, 260).asNumber(1, 40, 40);
+  numButtons[2] = new Button(100, 260).asNumber(2, 40, 40);
+  numButtons[3] = new Button(160, 260).asNumber(3, 40, 40);
+  numButtons[4] = new Button(40, 200).asNumber(4, 40, 40);
+  numButtons[5] = new Button(100, 200).asNumber(5, 40, 40);
+  numButtons[6] = new Button(160, 200).asNumber(6, 40, 40);
+  numButtons[7] = new Button(40, 140).asNumber(7, 40, 40);
+  numButtons[8] = new Button(100, 140).asNumber(8, 40, 40);
+  numButtons[9] = new Button(160, 140).asNumber(9, 40, 40);
+
+  // Populate special buttons
+  spButtons[0] = new Button(280, 260).asSpecial(".", 40, 40);
+  //spButton[0] = new Button(10, 275).asSpecial(".", 40, 40);
+
+  // Initial value is true
+  firstNum = true;
+}
+void draw() {
+  for (int i=0; i<numButtons.length; i++) {
+    Button inumButton = numButtons[i];
+    inumButton.display();
+  }
+
+  for (int i=0; i<opButtons.length; i++) {
+    Button iopButton = opButtons[i];
+    iopButton.display();
+  }
+
+  for (int i=0; i<spButtons.length; i++) {
+    Button ispButton = spButtons[i];
+    ispButton.display();
+
+   
+  }
+  updateDisplay();
+}
+void mousePressed() {
+  for (int i=0; i<numButtons.length; i++) {
+    Button inumButton = numButtons[i];
+    inumButton.click();
+    if (inumButton.on) {
+      if (firstNum) {
+        valueToCompute += int(inumButton.numButtonValue);
+        displayValue = valueToCompute;
+      } else {
+        valueToCompute2 += int(inumButton.numButtonValue);
+        displayValue = valueToCompute2;
+      }
+    }
+  }
+  for (int i=0; i<spButtons.length; i++) {
+    Button iSpButton = spButtons[i];
+    iSpButton.click();
+    if (iSpButton.on) {
+      if (iSpButton.spButtonValue == ".") {
+        if (iSpButton.on && firstNum == true) {
+          valueToCompute += iSpButton.spButtonValue;
+          displayValue = valueToCompute;
+        } else if (iSpButton.on && firstNum == false) {
+          valueToCompute2 += iSpButton.spButtonValue;
+          displayValue = valueToCompute2;
+        }
+      }
+    }
+  } 
+  for (int i=0; i<opButtons.length; i++) {
+    Button iOpButton = opButtons[i];
+    iOpButton.click();
+    if (iOpButton.on) {
+      if (iOpButton.opButtonValue == "C") {
+        println(i + " " + iOpButton.opButtonValue);
+        displayValue = "0";
+        opValue = 'C';
+        valueToCompute = "";
+        valueToCompute2 = "";
+        valueToComputeI = 0;
+        valueToComputeI = 0;
+        result = 0;
+        firstNum = true;
+      } else if (iOpButton.opButtonValue == "=") {
+        // Perform calculation
+        firstNum = true;
+        performCalculation();
+      } else if (iOpButton.opButtonValue == "+") {
+        if (result != 0) {
+          opValue = '+';
+          valueToCompute2 = "";
+          firstNum = false;
+          displayValue = "+";
+        } else {
+          opValue = '+';
+          firstNum = false;
+          displayValue = "+";
+        }
+      } else if (iOpButton.opButtonValue == "-") {
+        if (result != 0) {
+          opValue = '-';
+          valueToCompute2 = "";
+          firstNum = false;
+          displayValue = "-";
+        } else {
+          opValue = '-';
+          firstNum = false;
+          displayValue = "-";
+        }
+      } else if (iOpButton.opButtonValue == "*") {
+        if (result != 0) {
+          opValue = '*';
+          valueToCompute2 = "";
+          firstNum = false;
+          displayValue = "*";
+        } else {
+          opValue = '*';
+          firstNum = false;
+          displayValue = "*";
+        }
+      } else if (iOpButton.opButtonValue == "/") {
+        if (result != 0) {
+          opValue = '/';
+          valueToCompute2 = "";
+          firstNum = false;
+          displayValue = "/";
+        } else {
+          opValue = '/';
+          firstNum = false;
+          displayValue = "/";
+        }
+      } else if (iOpButton.opButtonValue == "+/-") {
+        opValue = 'n';
+        performCalculation();
+      } else if (iOpButton.opButtonValue == "%") {
+        opValue = '%';
+        performCalculation();
+      } else if (iOpButton.opButtonValue == "Sqrt") {
+        opValue = 's';
+        performCalculation();
+      } else if (iOpButton.opButtonValue == "Sin") {
+        opValue = 'i';
+        performCalculation();
+      } else if (iOpButton.opButtonValue == "Cos") {
+        opValue = 'c';
+        performCalculation();
+      } else if (iOpButton.opButtonValue == "Sq") {
+        opValue = 'q';
+        performCalculation();
+      }
+    }
+  }
+}
+void performCalculation() {
+  // set string values to integers
+  valueToComputeI = float(valueToCompute);
+  valueToComputeI2 = float(valueToCompute2);
+
+  // perform calculation based on the appropriate operator
+  if (opValue == '+') {
+    result = valueToComputeI + valueToComputeI2;
+    displayValue = str(result);
+  } else if (opValue == '-') {
+
+    result = valueToComputeI - valueToComputeI2;
+    displayValue = str(result);
+  } else if (opValue == '*') {
+    result = valueToComputeI * valueToComputeI2;
+    displayValue = str(result);
+  } else if (opValue == '/') {
+    result = valueToComputeI / valueToComputeI2;
+    displayValue = str(result);
+  } else if (opValue == 'n') {
+    if (firstNum) {
+      valueToComputeI = valueToComputeI*-1;
+      displayValue = str(valueToComputeI);
+    } else {
+      valueToComputeI2 = valueToComputeI2*-1;
+      displayValue = str(valueToComputeI);
+    }
+  } else if (opValue == 's') {
+    result = sqrt(valueToComputeI);
+    displayValue = str(result);
+  } else if (opValue == 'i') {
+
+    result = sin(valueToComputeI);
+    displayValue = str(result);
+  } else if (opValue == 'c') {
+    result = cos(valueToComputeI);
+    displayValue = str(result);
+  } else if (opValue == 'q') {
+    result = sq(valueToComputeI);
+    displayValue = str(result);
+  }
+  // let = work multiple times
+  if (firstNum) {
+    valueToCompute = displayValue;
+  } else {
+    valueToCompute = displayValue;
+    valueToCompute2 = "";
+  }
+}
+void updateDisplay() {
+  fill(220);
+  rect(40, 40, 340, 80, 7);
+  fill(0);
+  textSize(25);
+  text(displayValue, 45, 110);
+  /*
+  fill(50, 55, 55);
+   noStroke();
+   rect(230, 250, 100, 75);
+   fill(255);
+   textSize(10);
+   text("Val 1: " + valueToCompute, 240, 260);
+   text("Val 1: " + valueToCompute, 240, 270);
+   text("Result: " + result, 240, 275);
+   text("Operator: " + opValue, 240, 305);
+   */
+}
+
+/*void keyPressed() {
+ if (key == '1') {
+ handleKeyPressNum("1");
+ } else if (key == '2') {
+ handleKeyPressNum("2");
+ 
+ }
+ }
+ */
